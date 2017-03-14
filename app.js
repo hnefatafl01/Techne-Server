@@ -9,6 +9,7 @@ var dotenv = require('dotenv').config();
 var index = require('./routes/index');
 var users = require('./routes/users');
 var goals = require('./api/v1/goals');
+var exercises = require('./api/v1/exercises');
 
 var app = express();
 
@@ -22,10 +23,7 @@ app.use('/routes/index', index);
 app.use('/routes/users', users);
 
 app.use('/goals', goals);
-
-// app.use('*', function(req, res, next) {
-//   res.sendFile('index.html', {root: path.join(__dirname, 'public')})
-// })
+app.use('/exercises', exercises);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
