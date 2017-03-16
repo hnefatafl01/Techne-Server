@@ -71,11 +71,16 @@ module.exports = {
         })
     },
     insert: (data) => {
-      console.log(data);
       return Session.forge(data).save( null, { method: 'insert' })
         .then((collection) => {
           return collection.toJSON();
         })
+    }
+  },
+  SessionExercise: {
+    getAll: () => {
+      return SessionExercise.forge.fetchAll()
+        .then(collection)
     }
   }
 }
