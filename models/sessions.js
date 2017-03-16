@@ -3,15 +3,11 @@ const bookshelf = require('../db/bookshelf');
 require('./exercises');
 require('./goals');
 
-const Session = bookshelf.Model.extend({
+const Sessions = bookshelf.Model.extend({
   tableName: 'session',
-  exercise: function () {
-    return this.belongsToMany('Exercise').through('SessionExercise')
-  },
-  goal: function () {
-    return this.belongsToMany('Goal').through('Session')
-
+  goals: function () {
+    return this.belongsTo('Goal')
   }
 });
 
-module.exports = bookshelf.model('Session', Session);
+module.exports = bookshelf.model('Sessions', Sessions);

@@ -2,6 +2,7 @@ const Exercise = require('../../models').exercise;
 const Goal = require('../../models').goals;
 const GoalExercise = require('../../models').goal_exercise;
 const Session = require('../../models').sessions;
+const SessionExercise = require('../../models').session_exercise;
 
 module.exports = {
   Exercise: {
@@ -29,7 +30,6 @@ module.exports = {
     update: (id, data) => {
       return Exercise.forge({ id: id }).fetch()
         .then((exercise) => {
-          console.log(exercise);
           return exercise.save(data)
         })
     }
@@ -57,7 +57,6 @@ module.exports = {
       return Goal.where('id', id).destroy()
     },
     update: (id, data) => {
-      console.log(id,data);
       return Goal.forge({ id: id }).fetch()
         .then((goal) => {
           return goal.save(data)
@@ -66,11 +65,17 @@ module.exports = {
   },
   Session: {
     getAll: () => {
-      return Session.forge().fetchAll({ withRelated: 'exercise' })
+      return Session.forge().fetchAll({ withRelated: ['goals'] })
+        .then((collection) => {
+          return collection.toJSON();
+        })
+    },
+    insert: (data) => {
+      console.log(data);
+      return Session.forge(data).save( null, { method: 'insert' })
         .then((collection) => {
           return collection.toJSON();
         })
     }
   }
-
 }

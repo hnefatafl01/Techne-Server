@@ -1,3 +1,5 @@
 module.exports.goals = require('./goals');
-module.exports.exercise = require('./exercises');
+module.exports.exercises = require('./exercises');
 module.exports.goal_exercise = require('./goal_exercise');//for creating relationship only
+module.exports.sessions = require('./sessions');
+module.exports.session_exercise = require('./session_exercise');

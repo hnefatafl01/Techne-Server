@@ -1,5 +1,4 @@
 const express = require('express');
-const Exercise = require('../../models').exercise;
 const Queries = require('./queries');
 const router = express.Router();
 
