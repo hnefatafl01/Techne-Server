@@ -1,13 +1,12 @@
-'use strict';
-
 const bookshelf = require('../db/bookshelf');
 
+require('./goals');
 var Exercise = bookshelf.Model.extend({
   tableName: 'exercise',
   goal: function () {
-    return this.belongsToMany('goal').through('GoalExercise')
+    return this.belongsToMany('Goal').through('GoalExercise')
 
   }
 })
 
-module.exports = Exercise;
+module.exports = bookshelf.model('Exercise', Exercise);

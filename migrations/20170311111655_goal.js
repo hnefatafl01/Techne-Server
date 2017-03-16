@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('exercise_name');
     table.integer('reps');
     table.integer('load');
-    table.dateTime('finish_date');
+    table.date('finish_date');
   })
 };
 

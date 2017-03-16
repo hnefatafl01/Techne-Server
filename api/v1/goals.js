@@ -1,53 +1,40 @@
 const express = require('express');
-const Goal = require('../../models/goals');
+const Goal = require('../../models').goals;
+const Queries = require('./queries');
 const router = express.Router();
 
+
 router.get('/', (req, res) => {
-  Goal
-    .fetchAll()
+  Queries.Goal.getAll()
     .then((goals) => {
       res.json({ goals });
     })
 });
 
 router.post('/', (req, res) => {
-  new Goal({
-    exercise_name: req.body.exercise_name,
-    reps: req.body.reps,
-    load: req.body.load,
-    finish_date: req.body.finish_date
-  }).save()
+  Queries.Goal.insert(req.body)
   .then((saved) => {
     res.json({ saved });
   })
 })
 
 router.get('/:id', (req, res) => {
-  Goal.where('id', req.params.id).fetch()
+  Queries.Goal.getOne(req.params.id)
     .then((goal)=> {
       res.json({ goal });
     })
 })
 
-router.put('/:id', (req,res) => {
-  Goal.where('id', req.params.id).fetch()
-    .then((goal)=> {
-      goal.save({
-        exercise_name: req.body.exercise_name,
-        reps: req.body.reps,
-        load: req.body.load,
-        finish_date: req.body.finish_date
-      }).then((updated)=>{
-        console.log(updated);
-        res.json({ updated });
-      })
+router.put('/edit/:id', (req,res) => {
+  Queries.Goal.update(req.params.id, req.body)
+    .then((updated) => {
+      res.json({ updated });
     })
 })
 
-router.delete('/:id', (req, res) => {
-  Goal.where('id', req.params.id).destroy()
+router.delete('/delete/:id', (req, res) => {
+  Queries.Goal.destroy(req.params.id)
     .then((destroyed)=> {
-      console.log(destroyed);
       res.json({ destroyed })
     })
 })

@@ -1,5 +1,3 @@
-'use strict';
-
 const bookshelf = require('../db/bookshelf');
 
 const GoalExercise = bookshelf.Model.extend({
@@ -12,4 +10,4 @@ const GoalExercise = bookshelf.Model.extend({
   }
 })
 
-module.exports = bookshelf.Model('GoalExercise', GoalExercise);
+module.exports = bookshelf.model('GoalExercise', GoalExercise);

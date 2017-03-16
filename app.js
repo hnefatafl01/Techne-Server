@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var goals = require('./api/v1/goals');
 var exercises = require('./api/v1/exercises');
+var sessions = require('./api/v1/sessions')
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use('/routes/users', users);
 
 app.use('/goals', goals);
 app.use('/exercises', exercises);
+app.use('/sessions', sessions);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
