@@ -70,6 +70,12 @@ module.exports = {
           return collection.toJSON();
         })
     },
+    getOne: (id) => {
+      return Session.where({ id: id }).fetch({ withRelated: ['goals','exercises'] })
+        .then((collection) => {
+          return collection.toJSON();
+        })
+    },
     insert: (data) => {
       return Session.forge(data).save( null, { method: 'insert' })
         .then((collection) => {

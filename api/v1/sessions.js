@@ -17,4 +17,13 @@ router.post('/', (req, res) => {
     })
 })
 
+router.get('/:id', (req,res)=>{
+  console.log(req.params.id);
+  Queries.Session.getOne(req.params.id)
+    .then((session)=>{
+      console.log(session);
+      return session;
+    })
+})
+
 module.exports = router;
