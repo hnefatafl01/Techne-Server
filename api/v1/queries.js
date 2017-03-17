@@ -65,7 +65,7 @@ module.exports = {
   },
   Session: {
     getAll: () => {
-      return Session.forge().fetchAll({ withRelated: 'goals' })//add 'exercises'?
+      return Session.forge().fetchAll({ withRelated: ['goals','exercises'] })
         .then((collection) => {
           return collection.toJSON();
         })
