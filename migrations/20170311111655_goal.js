@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.integer('reps');
     table.integer('load');
     table.date('finish_date');
+    table.integer('session_id').unsigned().references('id').inTable('goal').onDelete('cascade');
   })
 };
 

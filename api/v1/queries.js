@@ -1,4 +1,4 @@
-const Exercise = require('../../models').exercise;
+const Exercise = require('../../models').exercises;
 const Goal = require('../../models').goals;
 const GoalExercise = require('../../models').goal_exercise;
 const Session = require('../../models').sessions;
@@ -7,7 +7,7 @@ const SessionExercise = require('../../models').session_exercise;
 module.exports = {
   Exercise: {
     getAll: () => {
-      return Exercise.forge().fetchAll({ withRelated: 'goal' })
+      return Exercise.forge().fetchAll( { withRelated: ['goal'] })
         .then((collection) => {
           return collection.toJSON();
         })
@@ -65,7 +65,7 @@ module.exports = {
   },
   Session: {
     getAll: () => {
-      return Session.forge().fetchAll({ withRelated: ['goals'] })
+      return Session.forge().fetchAll({ withRelated: 'goals' })//add 'exercises'?
         .then((collection) => {
           return collection.toJSON();
         })
@@ -75,12 +75,6 @@ module.exports = {
         .then((collection) => {
           return collection.toJSON();
         })
-    }
-  },
-  SessionExercise: {
-    getAll: () => {
-      return SessionExercise.forge.fetchAll()
-        .then(collection)
     }
   }
 }

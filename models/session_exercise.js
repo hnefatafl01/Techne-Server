@@ -1,7 +1,9 @@
 const bookshelf = require('../db/bookshelf');
 
+require('./exercises')
+require('./sessions')
 const SessionExercise = bookshelf.Model.extend({
-  tableName: 'Session_exercise',
+  tableName: 'session_exercise',
   session: function(){
     return this.hasMany('Session');
   },
