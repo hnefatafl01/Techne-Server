@@ -82,5 +82,10 @@ module.exports = {
           return collection.toJSON();
         })
     }
+  },
+  SessionExercise: {
+    insert: (data) => {
+      return SessionExercise.forge().save()
+    }
   }
 }

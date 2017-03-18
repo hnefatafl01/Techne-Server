@@ -11,6 +11,7 @@ router.get('/', (req,res) => {
 })
 
 router.post('/', (req, res) => {
+  console.log(req.body);
   Queries.Session.insert(req.body)
     .then((session)=>{
       res.json({ session });
