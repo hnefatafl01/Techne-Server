@@ -13,15 +13,14 @@ router.get('/', (req,res) => {
 router.post('/', (req, res) => {
   Queries.Session.insert(req.body)
     .then((session)=>{
-      res.json(session);
+      res.json({ session });
     })
 })
 
 router.get('/:id', (req,res)=>{
   Queries.Session.getOne(req.params.id)
-    .then((session)=>{
-      console.log(session);
-      return session;
+    .then((session) => {
+      res.json({ session });
     })
 })
 
