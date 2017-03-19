@@ -81,6 +81,12 @@ module.exports = {
         .then((collection) => {
           return collection.toJSON();
         })
+    },
+    update: (id, session) => {
+      return Session.forge(session).save()
+        .then((collection) => {
+          return collection.toJSON();
+        })
     }
   },
   SessionExercise: {

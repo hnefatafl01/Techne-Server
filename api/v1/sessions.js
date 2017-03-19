@@ -25,4 +25,13 @@ router.get('/:id', (req,res)=>{
     })
 })
 
+router.put('/edit/:id', (req,res) => {
+  let id = req.params.id;
+  let session = req.body;
+  Queries.Session.update(id, session)
+    .then((result) => {
+      res.json({ session })
+    })
+})
+
 module.exports = router;
