@@ -10,9 +10,9 @@ var Exercise = bookshelf.Model.extend({
     .through('GoalExercise')
   }
   ,
-  session:function() {
-    return this.belongsToMany('Session')
-    .through('SessionExercise')
+  sessions:function() {
+    return this.hasMany('Session').withPivot('exercises').through('SessionExercise')
+    //belongsTo
   }
 })
 

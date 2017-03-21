@@ -10,8 +10,7 @@ const Sessions = bookshelf.Model.extend({
   }
   ,
   exercises: function() {
-    return this.belongsToMany('Exercise')
-    .through('SessionExercise')
+    return this.belongsToMany('Exercise','session_exercise').through('SessionExercise')
   }
 });
 

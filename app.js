@@ -12,6 +12,7 @@ var goals = require('./api/v1/goals');
 var exercises = require('./api/v1/exercises');
 var sessions = require('./api/v1/sessions')
 
+
 var app = express();
 
 app.use(logger('dev'));

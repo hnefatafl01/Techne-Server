@@ -1,3 +1,4 @@
+const knex = require('../../db/knex')
 const Exercise = require('../../models').exercises;
 const Goal = require('../../models').goals;
 const GoalExercise = require('../../models').goal_exercise;
@@ -87,7 +88,27 @@ module.exports = {
         .then((collection) => {
           return collection.toJSON();
         })
-    }
+    },
+    addExercises: (id,exerciseId) => {
+      // return knex.select()
+      //   .from('exercise')
+      //   .join('session', 'session.id', 'session_id')
+      //   .where('session.id', session_id)
+      // { withRelated: ['exercises','SessionExercise'] }
+
+
+
+      // return Session.forge({ 'id': id }).save('exercise', { id: exerciseId})
+      //   .then((collection) => {
+      //     return collection.toJSON();
+      //   })
+    // },
+    // addExercises: (id, session, exercise) => {
+    //   return Session.forge(session).save().attach(exercise)
+    //     .then((collection) => {
+    //       return collection.toJSON();
+    //     })
+    },
   },
   SessionExercise: {
     insert: (data) => {

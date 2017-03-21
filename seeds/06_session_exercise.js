@@ -4,7 +4,7 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('session_exercise').insert([
-        {session_id: 1, exercise_id: 1, }
+        {session_id: 1, exercise_id: 1 }
       ]);
     });
 };
