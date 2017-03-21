@@ -14,7 +14,7 @@ module.exports = {
         })
     },
     getOne: (id) => {
-      return Exercise.where({ id: id }).fetch({ withRelated: 'goal' })
+      return Exercise.where({ id: id }).fetch({ withRelated: ['goal'] })
         .then((collection) => {
           return collection.toJSON();
         })
@@ -89,7 +89,7 @@ module.exports = {
           return collection.toJSON();
         })
     },
-    addExercises: (id,exerciseId) => {
+    // addExercises: (id,exerciseId) => {
       // return knex.select()
       //   .from('exercise')
       //   .join('session', 'session.id', 'session_id')
@@ -108,7 +108,7 @@ module.exports = {
     //     .then((collection) => {
     //       return collection.toJSON();
     //     })
-    },
+    // },
   },
   SessionExercise: {
     insert: (data) => {

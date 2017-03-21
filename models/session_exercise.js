@@ -5,10 +5,10 @@ require('./sessions')
 const SessionExercise = bookshelf.Model.extend({
   tableName: 'session_exercise',
   sessions: function() {
-    return this.hasMany('Session');
+    return this.hasMany('Session')
   },
   exercises: function() {
-    return this.hasMany('Exercise');
+    return this.hasMany('Exercise')
   }
 })
 

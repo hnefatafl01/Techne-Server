@@ -11,7 +11,8 @@ var Exercise = bookshelf.Model.extend({
   }
   ,
   sessions:function() {
-    return this.hasMany('Session').withPivot('exercises').through('SessionExercise')
+    return this.hasMany('Session','session_exercise').withPivot('session_id')
+    // .through('SessionExercise')
     //belongsTo
   }
 })
