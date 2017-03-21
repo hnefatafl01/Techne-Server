@@ -11,7 +11,6 @@ const Sessions = bookshelf.Model.extend({
   ,
   exercises: function() {
     return this.belongsToMany('Exercise','session_exercise').withPivot(['exercise_id','session_id'])
-    // .through('SessionExercise')
   }
 });
 

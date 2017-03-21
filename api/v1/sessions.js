@@ -16,7 +16,7 @@ router.get('/', (req,res) => {
 router.post('/', (req, res) => {
   Queries.Session.insert(req.body)
     .then((session)=>{
-      res.json({ session });
+      res.json({session});
     })
 })
 
@@ -28,8 +28,9 @@ router.get('/:id', (req,res)=>{
 })
 
 router.put('/edit/:id', (req,res) => {
-  let id = req.params.id;
+  // let id = req.params.id;
   let session = req.body;
+  let id = session.id;
 
   Queries.Session.update(id, session)
     .then((result) => {
