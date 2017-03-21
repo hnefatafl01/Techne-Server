@@ -60,6 +60,29 @@ router.get('/:id/exercises', (req,res) => {
     })
 })
 
+router.put('/:id/exercises', (req,res)=>{
+    Queries.Session.update(req.body)
+      .then((exercise) => {
+        console.log(exercise.id);
+        return knex('session_exercise')
+          .insert({
+            session_id: req.params.id,
+            exercise_id: exercise.id
+          })
+          .then(() => {
+            res.json(exercise)
+          })
+    })
+});
+
+router.delete('/:id/exercises/delete/:id', (req, res) => {
+  Queries.Exercise.destroy(exerciseId)
+    .then((result) => {
+      console.log(result);
+      res.json({result})
+    })
+})
+
 // router.get('/:id/exercises/:id', (req,res) => {
 //   Queries.Session.getOne(req.params.id)
 //     .then((session) => {
