@@ -75,12 +75,22 @@ router.put('/:id/exercises', (req,res)=>{
     })
 });
 
-router.delete('/:id/exercises/delete/:id', (req, res) => {
-  Queries.Exercise.destroy(exerciseId)
-    .then((result) => {
-      console.log(result);
-      res.json({result})
+router.get('/:id/exercises', (req, res) => {
+  console.log(req.params.id);
+  Queries.Session.getOne(req.params.id)
+    .then((session)=>{
+      console.log(session);
+      Queries.Exercise.getOne(id)
     })
+})
+
+router.delete('/:id/exercises/delete/:exerciseId', (req, res) => {
+  // Queries.Exercise.destroy(id, exerciseId)
+  //   .then((result) => {
+  //     console.log(result);
+  //     res.json({result})
+  //   })
+  console.log(req.params.id);
 })
 
 // router.get('/:id/exercises/:id', (req,res) => {

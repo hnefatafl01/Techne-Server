@@ -25,9 +25,24 @@ module.exports = {
           return collection.toJSON();
         })
     },
-    destroy: (id)=> {
-      return Exercise.where('id', id).destroy()
-    },
+    // destroy: (id)=> {
+    //   return Exercise.where('id', id).destroy()
+    // },
+
+    destroy: function (id, session_id) {
+          if (session_id) {
+            var ids = {
+              exercise_id: id,
+              session_id: session_id
+            }
+            return SessionExercise.where(ids).destroy();
+          }
+          return Exercise.where({id: id}).destroy()
+            .then(function (message) {
+              return SessionExercise.where({exercise_id: id}).destroy();
+          });
+        },
+
     update: (id, data) => {
       return Exercise.forge({ id: id }).fetch()
         .then((exercise) => {
@@ -57,6 +72,8 @@ module.exports = {
     destroy: (id)=> {
       return Goal.where('id', id).destroy()
     },
+
+
     update: (id, data) => {
       return Goal.forge({ id: id }).fetch()
         .then((goal) => {
