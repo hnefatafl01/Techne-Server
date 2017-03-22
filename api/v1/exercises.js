@@ -30,7 +30,6 @@ router.put('/edit/:id', (req,res) => {
     })
 })
 
-
 router.delete('/delete/:id', (req,res) => {
   Queries.Exercise.destroy(req.params.id)
     .then((destroyed) => {
