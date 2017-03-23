@@ -2,6 +2,7 @@ const express = require('express');
 const knex = require('../../../db/knex')
 const bcrypt = require('bcrypt');
 const authQueries = require('./authQueries')
+const jwt = require('jsonwebtoken')
 const router = express.Router();
 
 function validUser(user) {
@@ -53,11 +54,15 @@ router.post('/signin', function(req,res,next) {
     authQueries
       .getUserByEmail(userEmail)
       .then(function(result) {
-        if(bcrypt.compareSync(userPassword, result.password)){
-          res.json({
-            results: result,
-            message: '🔓'
-          })
+        if(bcrypt.compareSync(userPassword, result.password)) {
+          var myToken = jwt.sign({ email: result.email }, process.env.TOKEN_SECRET)
+          res.status(200).json(
+            {myToken}
+              // {
+              //   results: result,
+              //   message: '🔓'
+              // }
+            )
         } else {
           res.json({
             message: "Invalid password 🔐"
