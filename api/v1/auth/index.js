@@ -3,6 +3,7 @@ const knex = require('../../../db/knex')
 const bcrypt = require('bcrypt');
 const authQueries = require('./authQueries')
 const jwt = require('jsonwebtoken')
+const jwtHelper = require('./jwtHelper')
 const router = express.Router();
 
 function validUser(user) {
@@ -55,7 +56,8 @@ router.post('/signin', function(req,res,next) {
       .getUserByEmail(userEmail)
       .then(function(result) {
         if(bcrypt.compareSync(userPassword, result.password)) {
-          var myToken = jwt.sign({ email: result.email }, process.env.TOKEN_SECRET)
+          var myToken = jwtHelper.createJWT(result)
+          // var myToken = jwt.sign({ user }, process.env.TOKEN_SECRET)
           res.status(200).json(
             {myToken}
               // {
