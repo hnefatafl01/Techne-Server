@@ -14,24 +14,22 @@ var goals = require('./api/v1/goals');
 var exercises = require('./api/v1/exercises');
 var sessions = require('./api/v1/sessions')
 var auth = require('./api/v1/auth')
+var users = require('./api/v1/users')
 
 var app = express();
-
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/signin','/auth/signup'] }))
+// app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/signin','/auth/signup'] }))
 
-app.use('/routes/index', index);
-app.use('/routes/users', users);
-
+app.use('/auth', auth);
+app.use('/users', users);
 app.use('/goals', goals);
 app.use('/exercises', exercises);
 app.use('/sessions', sessions);
-app.use('/auth', auth);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

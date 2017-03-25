@@ -28,5 +28,8 @@ module.exports = {
   },
   deleteSession: function(id) {
     return knex('session').where('id',id).del()
+  },
+  getSessionByUser: function(id) {
+    return knex('session').where
   }
 }
