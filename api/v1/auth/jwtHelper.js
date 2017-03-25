@@ -10,7 +10,7 @@ module.exports = {
       username: user.username,
       email: user.email
     }
-    return jwt.sign(jwtPayload, process.env.TOKEN_SECRET);
+    return jwt.sign(jwtPayload, process.env.TOKEN_SECRET, { expiresIn: '1h' });
   },
   decodeJWT: function(token){
     return jwt.verify(token, process.env.TOKEN_SECRET);

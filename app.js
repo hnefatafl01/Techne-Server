@@ -15,15 +15,15 @@ var exercises = require('./api/v1/exercises');
 var sessions = require('./api/v1/sessions')
 var auth = require('./api/v1/auth')
 
-
 var app = express();
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/signin','/auth/signup'] }))
 app.use(cookieParser());
 app.use(cors());
+app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/signin','/auth/signup'] }))
 
 app.use('/routes/index', index);
 app.use('/routes/users', users);

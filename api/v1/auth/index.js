@@ -32,7 +32,16 @@ router.post('/signup', (req,res,next) => {
             authQueries
               .createUser(user)
               .then((result) => {
-                res.json(result)
+                // console.log(result);
+                let user = {
+                  id: result[0].id,
+                  username: result[0].username,
+                  email: result[0].email
+                }
+                console.log(user);
+                var id_token = jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '1h' })
+                console.log(id_token);
+                res.status(200).json({id_token})
               }).catch((err) => {
                   console.log('invalid user');
                   res.send('Invalid user')
@@ -56,15 +65,15 @@ router.post('/signin', function(req,res,next) {
       .getUserByEmail(userEmail)
       .then(function(result) {
         if(bcrypt.compareSync(userPassword, result.password)) {
-          var myToken = jwtHelper.createJWT(result)
+          var id_token = jwtHelper.createJWT(result)
           // var myToken = jwt.sign({ user }, process.env.TOKEN_SECRET)
-          res.status(200).json(
-            {myToken}
+          console.log(id_token);
+          res.status(200).json({id_token})
               // {
               //   results: result,
               //   message: '🔓'
               // }
-            )
+
         } else {
           res.json({
             message: "Invalid password 🔐"
