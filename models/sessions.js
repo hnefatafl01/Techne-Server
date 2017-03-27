@@ -12,8 +12,7 @@ const Sessions = bookshelf.Model.extend({
   },
   exercises: function() {
     return this.belongsToMany('Exercise','session_exercise').withPivot(['exercise_id','session_id'])
-  }
-  ,
+  },
   user: function() {
     return this.belongsTo('User').through('UserSession')
   }

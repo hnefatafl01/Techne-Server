@@ -23,7 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-// app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/signin','/auth/signup'] }))
+
+app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/signin','/auth/signup'] }))
 
 app.use('/auth', auth);
 app.use('/users', users);

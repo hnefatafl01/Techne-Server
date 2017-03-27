@@ -1,7 +1,7 @@
 const express = require('express');
 const knex = require('../../../db/knex')
 const bcrypt = require('bcrypt');
-const authQueries = require('./authQueries')
+const AuthQueries = require('./authQueries')
 const jwt = require('jsonwebtoken')
 const jwtHelper = require('./jwtHelper')
 const router = express.Router();
@@ -9,9 +9,7 @@ const router = express.Router();
 function validUser(user) {
   const validEmail = typeof user.email == 'string' && user.email.trim() != "";
   const validPassword = typeof user.password == 'string' && user.password.trim() != "";
-  if(validEmail && validPassword) {
-    return true
-  }
+  return validEmail && validPassword
 }
 
 router.post('/signup', (req,res,next) => {
@@ -29,7 +27,7 @@ router.post('/signup', (req,res,next) => {
           return user
         })
         .then((user) => {
-            authQueries
+            AuthQueries
               .createUser(user)
               .then((result) => {
                 // console.log(result);
@@ -40,7 +38,7 @@ router.post('/signup', (req,res,next) => {
                 }
                 // console.log(user);
                 var id_token = jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '1h' })
-                // console.log(id_token);
+                console.log(id_token);
                 res.status(200).json({id_token})
               }).catch((err) => {
                   // console.log('invalid user');
@@ -50,31 +48,30 @@ router.post('/signup', (req,res,next) => {
       }
     })
   } else {
-    // res.json({
-    //   message: "Invalid password 🔐"
-    // })
-    console.log('invalid password');
+    res.json({
+      message: "Invalid password 🔐"
+    })
+    // console.log('invalid password');
   }
 })
 
 router.post('/signin', function(req,res,next) {
-  if(validUser(req.body)){
+  // console.log(req.body);
+  if(validUser(req.body)) {
     let userEmail = req.body.email;
     let userPassword = req.body.password;
-    authQueries
-      .getUserByEmail(userEmail)
-      .then(function(result) {
-        if(bcrypt.compareSync(userPassword, result.password)) {
-          console.log(result);
-          var id_token = jwtHelper.createJWT(result)
-          // var myToken = jwt.sign({ user }, process.env.TOKEN_SECRET)
+    AuthQueries.getUserByEmail(userEmail)
+      .then(function(user) {
+        // console.log(user.password);
+        let compare = bcrypt.compareSync(userPassword, user.password)
+        // console.log(compare);
+        if(user) {
+          console.log(user);
+          var id_token = jwtHelper.createJWT(user)
+          var id_token = jwt.sign({ user }, process.env.TOKEN_SECRET)
           console.log(id_token);
           res.status(200).json({id_token})
-              // {
-              //   results: result,
-              //   message: '🔓'
-              // }
-
+          console.log("🤞");
         } else {
           res.json({
             message: "Invalid password 🔐"
