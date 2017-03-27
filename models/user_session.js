@@ -1,14 +1,14 @@
 const bookshelf = require('../db/bookshelf');
-
 require('./users')
 require('./sessions')
+
 const UserSession = bookshelf.Model.extend({
   tableName: 'user_session',
   sessions: function() {
-    return this.hasMany('Session')
+    return this.hasMany('Sessions')
   },
-  users: function() {
-    return this.hasMany('User')
+  user: function() {
+    return this.hasOne('User')
   }
 })
 

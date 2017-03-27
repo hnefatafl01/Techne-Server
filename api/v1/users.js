@@ -1,7 +1,6 @@
 const express = require('express');
 const Queries = require('./queries');
 const knex = require('../../db/knex')
-
 const router = express.Router();
 
 router.get('/:id', (req,res)=>{
@@ -11,7 +10,15 @@ router.get('/:id', (req,res)=>{
     })
 })
 
-router.post('/:id/exercises', (req,res)=>{
+router.get('/:id/sessions', (req,res) => {
+  Queries.User.getUserSessions(req.params.id)
+  // return knex('user').select('*').where('id', req.params.id)
+    .then((result) => {
+      res.json({ result });
+    })
+})
+
+router.post('/:id/sessions', (req,res) => {
     Queries.User.insert(req.body)
       .then((session) => {
         console.log(session.id);

@@ -3,6 +3,7 @@ const bookshelf = require('../db/bookshelf');
 require('./goals');
 require('./sessions');
 require('./session_exercise');
+
 var Exercise = bookshelf.Model.extend({
   tableName: 'exercise',
   goal: function() {
