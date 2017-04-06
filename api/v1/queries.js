@@ -1,11 +1,12 @@
 const knex = require('../../db/knex')
 const Exercise = require('../../models').exercises;
 const Goal = require('../../models').goals;
-const GoalExercise = require('../../models').goal_exercise;
 const Session = require('../../models').sessions;
-const SessionExercise = require('../../models').session_exercise;
 const Users = require('../../models').users;
+const GoalExercise = require('../../models').goal_exercise;
+const SessionExercise = require('../../models').session_exercise;
 const UserSession = require('../../models').user_session;
+const UserGoal = require('../../models').user_goal;
 
 module.exports = {
   Exercise: {
@@ -119,7 +120,7 @@ module.exports = {
       return Users.where({ id: id }).fetchAll({ withRelated: ['sessions'] })
     },
     getUserGoals: function(id) {
-      return Users.where({ id: id }).fetchAll( {withRelated: ['goals']})
+      return Users.where({ id: id }).fetchAll({ withRelated: ['goals'] })
     }
   }
 }

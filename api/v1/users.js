@@ -16,7 +16,7 @@ router.get('/:id', (req,res)=>{
     let id = decoded.user.id
     return knex('user').select('*').where('id', req.params.id)
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       res.json({ user });
     })
   }
@@ -29,7 +29,7 @@ router.get('/:id/sessions', (req,res) => {
     let id = decoded.user.id
     Queries.User.getUserSessions(id)
       .then((result) => {
-        console.log(result.sessions);
+        // console.log(result.sessions);
         res.json({ result });
       })
   } else {
@@ -40,7 +40,7 @@ router.get('/:id/sessions', (req,res) => {
 router.post('/:id/sessions', (req,res) => {
     Queries.User.insert(req.body)
       .then((session) => {
-        console.log(session.id);
+        // console.log(session.id);
         return knex('user_session')
           .insert({
             session_id: req.params.id,
@@ -51,10 +51,6 @@ router.post('/:id/sessions', (req,res) => {
           })
     })
 });
-
-
-
-
 
 // router.get('/:id/exercises', (req,res) => {
 //   Queries.Session.getOne(req.params.id)

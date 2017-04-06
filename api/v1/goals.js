@@ -1,5 +1,6 @@
 const express = require('express');
-const Goal = require('../../models').goals;
+// const Goal = require('../../models').goals;
+// const User = require('../../models').users;
 const Queries = require('./queries');
 const jwtHelper = require('./auth/jwtHelper')
 const router = express.Router({mergeParams: true});
@@ -13,7 +14,6 @@ router.get('/', (req, res) => {
     let id = decoded.user.id
     Queries.User.getUserGoals(id)
       .then((goals) => {
-        console.log(goals);
         res.json({ goals });
       })
   }
