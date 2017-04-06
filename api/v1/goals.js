@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
   if(decoded) {
     let id = decoded.user.id
     Queries.User.getUserGoals(id)
-      .then((goals) => {
-        res.json({ goals });
+      .then((UserGoals) => {
+        res.json({ UserGoals });
       })
   }
 });
