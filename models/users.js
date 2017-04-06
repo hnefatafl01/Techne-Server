@@ -10,6 +10,7 @@ const User = bookshelf.Model.extend({
   },
   sessions: function() {
     return this.belongsToMany('Sessions').through('UserSession')
+
   }
 });
 

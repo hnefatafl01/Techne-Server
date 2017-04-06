@@ -1,6 +1,6 @@
 const express = require('express');
 const Queries = require('./queries');
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
 router.get('/', (req, res) => {
   Queries.Exercise.getAll()

@@ -7,7 +7,6 @@ const router = express.Router({mergeParams: true});
 
 router.get('/', (req, res) => {
   let token = req.headers.authorization.split('').splice(7).join('');
-
   let decoded = jwtHelper.decodeJWT(token);
   console.log(decoded);
   if(decoded) {

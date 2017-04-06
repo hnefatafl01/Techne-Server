@@ -8,7 +8,7 @@ const UserSession = bookshelf.Model.extend({
     return this.hasMany('Sessions')
   },
   user: function() {
-    return this.hasOne('User')
+    return this.hasMany('User')
   }
 })
 

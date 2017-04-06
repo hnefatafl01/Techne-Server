@@ -3,7 +3,7 @@ const Queries = require('./queries');
 const knex = require('../../db/knex')
 const Exercise = require('../../models').exercises;
 const Session = require('../../models').sessions;
-const router = express.Router({mergeParams: true});
+const router = express.Router();//{mergeParams: true}
 
 router.get('/', (req,res) => {
   Queries.Session.getAll()
@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req,res)=>{
+router.get('/:id', (req,res) => {
   Queries.Session.getOne(req.params.id)
     .then((session) => {
       res.json({ session });
@@ -36,7 +36,7 @@ router.put('/edit/:id', (req,res) => {
       res.json({ result })
     })
 })
-
+//exercises//
 router.post('/:id/exercises', (req,res)=>{
     Queries.Exercise.insert(req.body)
       .then((exercise) => {

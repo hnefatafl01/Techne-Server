@@ -85,13 +85,13 @@ module.exports = {
   },
   Session: {
     getAll: () => {
-      return Session.forge().fetchAll({ withRelated: ['goals','exercises'] })
+      return Session.forge().fetchAll({ withRelated: ['user','exercises'] })
         .then((collection) => {
           return collection.toJSON();
         })
     },
     getOne: (id) => {
-      return Session.where({ id: id }).fetch({ withRelated: ['goals','exercises'] })
+      return Session.where({ id: id }).fetch({ withRelated: ['user','exercises'] })
         .then((collection) => {
           return collection.toJSON();
         })
