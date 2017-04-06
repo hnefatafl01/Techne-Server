@@ -12,10 +12,11 @@ const Sessions = bookshelf.Model.extend({
   // },
   exercises: function() {
     return this.belongsToMany('Exercise','session_exercise').withPivot(['exercise_id','session_id'])
-  },
+  }
+  //might not need user on this model
+  ,
   user: function() {
     return this.belongsToMany('User').through('UserSession')
-
   }
 });
 

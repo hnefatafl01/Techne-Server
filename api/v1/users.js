@@ -7,7 +7,7 @@ const goals = require('./goals')
 const router = express.Router();
 
 router.use('/:id/goals', goals)
-router.use('/:id/sessions', sessions)
+// router.use('/:id/sessions', sessions)
 
 router.get('/:id', (req,res)=>{
   let token = req.headers.authorization.split('').splice(7).join('');

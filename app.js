@@ -29,8 +29,8 @@ app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/s
 app.use('/auth', auth);
 app.use('/users', users);
 // app.use('/goals', goals);
-app.use('/exercises', exercises);
-app.use('/sessions', sessions);
+// app.use('/exercises', exercises);
+// app.use('/sessions', sessions);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
