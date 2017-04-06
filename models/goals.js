@@ -7,8 +7,8 @@ const Goal = bookshelf.Model.extend({
     return this.belongsToMany('Exercise').through('GoalExercise')
   }
   ,
-  session: function () {
-    return this.belongsToMany('Session')
+  user: function () {
+    return this.belongsTo('User')
   }
 });
 

@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.date('date');
     table.integer('duration');
-    table.integer('goal_id').unsigned().references('id').inTable('goal').onDelete('cascade');
+    // table.integer('goal_id').unsigned().references('id').inTable('goal').onDelete('cascade');
   })
 };
 

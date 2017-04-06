@@ -28,7 +28,7 @@ app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/s
 
 app.use('/auth', auth);
 app.use('/users', users);
-app.use('/goals', goals);
+// app.use('/goals', goals);
 app.use('/exercises', exercises);
 app.use('/sessions', sessions);
 

@@ -1,20 +1,38 @@
 const express = require('express');
 const Queries = require('./queries');
 const knex = require('../../db/knex')
+const jwtHelper = require('./auth/jwtHelper')
+// const sessions = require('./sessions')
+const goals = require('./goals')
 const router = express.Router();
 
+router.use('/:id/goals', goals)
+
 router.get('/:id', (req,res)=>{
-  return knex('user').select('*').where('id', req.params.id)
+  let token = req.headers.authorization.split('').splice(7).join('');
+  let decoded = jwtHelper.decodeJWT(token);
+  if(decoded) {
+    let id = decoded.user.id
+    return knex('user').select('*').where('id', req.params.id)
     .then((user) => {
       res.json({ user });
     })
+  }
 })
 
 router.get('/:id/sessions', (req,res) => {
-  Queries.User.getUserSessions(req.params.id)
-    .then((result) => {
-      res.json({ result });
-    })
+  let token = req.headers.authorization.split('').splice(7).join('');
+  let decoded = jwtHelper.decodeJWT(token);
+  if(decoded) {
+    let id = decoded.user.id
+    Queries.User.getUserSessions(id)
+      .then((result) => {
+        console.log(result.sessions);
+        res.json({ result });
+      })
+  } else {
+    res.status(401);
+  }
 })
 
 router.post('/:id/sessions', (req,res) => {
@@ -26,12 +44,16 @@ router.post('/:id/sessions', (req,res) => {
             session_id: req.params.id,
             user_id: user.id
           })
-          .then(() => {
-            res.json(exercise)
+          .then((result) => {
+            res.json(result)
           })
     })
 });
-//
+
+
+
+
+
 // router.get('/:id/exercises', (req,res) => {
 //   Queries.Session.getOne(req.params.id)
 //     .then((session) => {

@@ -1,14 +1,22 @@
 const express = require('express');
 const Goal = require('../../models').goals;
 const Queries = require('./queries');
-const router = express.Router();
+const jwtHelper = require('./auth/jwtHelper')
+const router = express.Router({mergeParams: true});
 
 
 router.get('/', (req, res) => {
-  Queries.Goal.getAll()
-    .then((goals) => {
-      res.json({ goals });
-    })
+  let token = req.headers.authorization.split('').splice(7).join('');
+
+  let decoded = jwtHelper.decodeJWT(token);
+  console.log(decoded);
+  if(decoded) {
+    let id = decoded.user.id
+    Queries.Goal.getAll()
+      .then((goals) => {
+        res.json({ goals });
+      })
+  }
 });
 
 router.post('/', (req, res) => {

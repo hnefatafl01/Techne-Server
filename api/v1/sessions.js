@@ -3,8 +3,7 @@ const Queries = require('./queries');
 const knex = require('../../db/knex')
 const Exercise = require('../../models').exercises;
 const Session = require('../../models').sessions;
-
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
 router.get('/', (req,res) => {
   Queries.Session.getAll()
