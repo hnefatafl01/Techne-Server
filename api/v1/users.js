@@ -16,6 +16,7 @@ router.get('/:id', (req,res)=>{
     let id = decoded.user.id
     return knex('user').select('*').where('id', req.params.id)
     .then((user) => {
+      console.log(user);
       res.json({ user });
     })
   }

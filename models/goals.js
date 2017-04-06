@@ -1,6 +1,8 @@
 const bookshelf = require('../db/bookshelf');
 
 require('./exercises');
+require('./users');
+
 const Goal = bookshelf.Model.extend({
   tableName: 'goal',
   exercise: function () {

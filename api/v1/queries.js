@@ -117,6 +117,9 @@ module.exports = {
   User: {
     getUserSessions: function(id) {
       return Users.where({ id: id }).fetchAll({ withRelated: ['sessions'] })
+    },
+    getUserGoals: function(id) {
+      return Users.where({ id: id }).fetchAll( {withRelated: ['goals']})
     }
   }
 }
