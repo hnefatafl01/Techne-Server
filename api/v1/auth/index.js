@@ -69,9 +69,9 @@ router.post('/signin', function(req,res,next) {
           console.log(user);
           var id_token = jwtHelper.createJWT(user)
           var id_token = jwt.sign({ user }, process.env.TOKEN_SECRET)
-          console.log(id_token);
+          // console.log(id_token);
           res.status(200).json({id_token})
-          console.log("🤞");
+          // console.log("🤞");
         } else {
           res.json({
             message: "Invalid password 🔐"

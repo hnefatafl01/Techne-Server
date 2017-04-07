@@ -1,17 +1,17 @@
 const express = require('express');
 const Queries = require('./queries');
-const knex = require('../../db/knex')
-const jwtHelper = require('./auth/jwtHelper')
-const sessions = require('./sessions')
-const goals = require('./goals')
+const knex = require('../../db/knex');
+const jwtHelper = require('./auth/jwtHelper');
+const sessions = require('./sessions');
+const goals = require('./goals');
 const router = express.Router();
 
 router.use('/:id/goals', goals)
 // router.use('/:id/sessions', sessions)
 
 router.get('/:id', (req,res)=>{
-  let token = req.headers.authorization.split('').splice(7).join('');
-  let decoded = jwtHelper.decodeJWT(token);
+  let jwt = req.headers.Authorization.split('').splice(7).join('');
+  let decoded = jwtHelper.decodeJWT(jwt);
   if(decoded) {
     let id = decoded.user.id
     return knex('user').select('*').where('id', req.params.id)
@@ -23,8 +23,9 @@ router.get('/:id', (req,res)=>{
 })
 
 router.get('/:id/sessions', (req,res) => {
-  let token = req.headers.authorization.split('').splice(7).join('');
-  let decoded = jwtHelper.decodeJWT(token);
+  let jwt = req.headers.authorization.split('').splice(7).join('');
+  // console.log(jwt);
+  let decoded = jwtHelper.decodeJWT(jwt);
   if(decoded) {
     let id = decoded.user.id
     Queries.User.getUserSessions(id)
@@ -38,6 +39,10 @@ router.get('/:id/sessions', (req,res) => {
 })
 
 router.post('/:id/sessions', (req,res) => {
+  let jwt = req.headers.Authorization.split('').splice(7).join('');
+  let decoded = jwtHelper.decodeJWT(jwt);
+  if(decoded) {
+    let id = decoded.user.id
     Queries.User.insert(req.body)
       .then((session) => {
         // console.log(session.id);
@@ -50,6 +55,7 @@ router.post('/:id/sessions', (req,res) => {
             res.json(result)
           })
     })
+  }
 });
 
 // router.get('/:id/exercises', (req,res) => {

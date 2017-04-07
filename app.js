@@ -22,15 +22,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors({
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+app.use(cors(
+  // {
+  // origin: "*",
+  // methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   // preflightContinue: true,
   // credentials: true,
-  allowedHeaders: ["X-ACCESS_TOKEN", "Access-Control-Allow-Origin", "Authorization", "Origin", "x-requested-with", "Content-Type", "Content-Range", "Content-Disposition", "Content-Description"],
+  // allowedHeaders: ["X-ACCESS_TOKEN", "Access-Control-Allow-Origin", "Authorization", "Origin", "x-requested-with", "Content-Type", "Content-Range", "Content-Disposition", "Content-Description"],
   // exposedHeaders: ['Content-Range', 'X-Content-Range',"Authorization"],
-  optionsSuccessStatus: 204
-}));
+  // optionsSuccessStatus: 204
+// }
+));
 
 app.use(expressJWT({ secret: process.env.TOKEN_SECRET }).unless({ path:['/auth/signin','/auth/signup'] }))
 

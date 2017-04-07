@@ -7,9 +7,10 @@ const router = express.Router({mergeParams: true});
 
 
 router.get('/', (req, res) => {
-  let token = req.headers.authorization.split('').splice(7).join('');
-  let decoded = jwtHelper.decodeJWT(token);
-  // console.log(decoded);
+  let jwt = req.headers.authorization.split('').splice(7).join('');
+  let decoded = jwtHelper.decodeJWT(jwt);
+  console.log("decode tokens for goals" + decoded);
+
   if(decoded) {
     let id = decoded.user.id
     Queries.User.getUserGoals(id)
