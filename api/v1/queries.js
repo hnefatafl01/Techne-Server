@@ -31,7 +31,6 @@ module.exports = {
     // destroy: (id)=> {
     //   return Exercise.where('id', id).destroy()
     // },
-
     destroy: function (id, session_id) {
           if (session_id) {
             var ids = {
@@ -122,5 +121,13 @@ module.exports = {
     getUserGoals: function(id) {
       return Users.where({ id: id }).fetchAll({ withRelated: ['goals'] })
     }
+    // , need to create new query to add goals to a user
+    // addUserGoal: function(id, goal) {
+    //   return UserGoal.forge(data).save( null, { method: 'insert' })
+    //     .then((collection) => {
+    //       return collection.toJSON();
+    //     })
+    // }
+
   }
 }

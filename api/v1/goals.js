@@ -8,11 +8,11 @@ const router = express.Router({mergeParams: true});
 
 router.get('/', (req, res) => {
   let jwt = req.headers.authorization.split('').splice(7).join('');
-  let decoded = jwtHelper.decodeJWT(jwt);
-  console.log("decode tokens for goals" + decoded);
-
+  var decoded = jwtHelper.decodeJWT(jwt);
+  // console.log("decode tokens for goals" + decoded.user);
+  decoded = decoded.user;
   if(decoded) {
-    let id = decoded.user.id
+    let id = decoded.id
     Queries.User.getUserGoals(id)
       .then((UserGoals) => {
         res.json({ UserGoals });
@@ -21,8 +21,16 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  Queries.Goal.insert(req.body)
+  let goal = {
+    exercise_name: req.body.exercise,
+    reps: req.body.repetitions,
+    load: req.body.load,
+    finish_date: req.body.goalFinishDate
+  }
+  // console.log(goal);
+  Queries.Goal.insert(goal)
   .then((saved) => {
+    console.log(saved);
     res.json({ saved });
   })
 })
