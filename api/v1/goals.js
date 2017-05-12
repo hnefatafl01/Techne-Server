@@ -21,17 +21,17 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  let goal = {
-    exercise_name: req.body.exercise,
-    reps: req.body.repetitions,
-    load: req.body.load,
-    finish_date: req.body.goalFinishDate
+  let jwt = req.headers.authorization.split('').splice(7).join('');
+  var decoded = jwtHelper.decodeJWT(jwt);
+  decoded = decoded.user;
+  if(decoded) {
+    var id = decoded.id
   }
-  // console.log(goal);
-  Queries.Goal.insert(goal)
-  .then((saved) => {
-    console.log(saved);
-    res.json({ saved });
+  // console.log(req.body);
+  Queries.User.addUserGoal(id, req.body)
+  .then((usergoal) => {
+    // console.log('UserGoal Response',usergoal);
+    res.json({ usergoal });
   })
 })
 

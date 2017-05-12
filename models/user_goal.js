@@ -1,13 +1,11 @@
 const bookshelf = require('../db/bookshelf');
-// require('./users')
-// require('./goals')
 
 const UserGoal = bookshelf.Model.extend({
   tableName: 'user_goal',
-  goal: function() {
+  goals: function() {
     return this.hasMany('Goal')
   },
-  user: function() {
+  users: function() {
     return this.hasMany('User')
   }
 })
