@@ -1,9 +1,12 @@
 const express = require('express');
 const Queries = require('./queries');
-const knex = require('../../db/knex')
+const knex = require('../../db/knex');
 const Exercise = require('../../models').exercises;
 const Session = require('../../models').sessions;
-const router = express.Router();//{mergeParams: true}
+const exercises = require('./exercises');
+const router = express.Router({mergeParams: true});//
+
+router.use('/:id/exercises', exercises);
 
 router.get('/', (req,res) => {
   Queries.Session.getAll()
@@ -36,68 +39,5 @@ router.put('/edit/:id', (req,res) => {
       res.json({ result })
     })
 })
-//exercises//
-router.post('/:id/exercises', (req,res)=>{
-    Queries.Exercise.insert(req.body)
-      .then((exercise) => {
-        console.log(exercise.id);
-        return knex('session_exercise')
-          .insert({
-            session_id: req.params.id,
-            exercise_id: exercise.id
-          })
-          .then(() => {
-            res.json(exercise)
-          })
-    })
-});
-
-router.get('/:id/exercises', (req,res) => {
-  Queries.Session.getOne(req.params.id)
-    .then((session) => {
-      res.json({ session })
-    })
-})
-
-router.put('/:id/exercises', (req,res)=>{
-    Queries.Session.update(req.body)
-      .then((exercise) => {
-        console.log(exercise.id);
-        return knex('session_exercise')
-          .insert({
-            session_id: req.params.id,
-            exercise_id: exercise.id
-          })
-          .then(() => {
-            res.json(exercise)
-          })
-    })
-});
-
-router.get('/:id/exercises', (req, res) => {
-  console.log(req.params.id);
-  Queries.Session.getOne(req.params.id)
-    .then((session)=>{
-      console.log(session);
-      Queries.Exercise.getOne(id)
-    })
-})
-
-router.delete('/:id/exercises/delete/:exerciseId', (req, res) => {
-  // Queries.Exercise.destroy(id, exerciseId)
-  //   .then((result) => {
-  //     console.log(result);
-  //     res.json({result})
-  //   })
-  console.log(req.params.id);
-})
-
-// router.get('/:id/exercises/:id', (req,res) => {
-//   Queries.Session.getOne(req.params.id)
-//     .then((session) => {
-//       res.json({ session })
-//     })
-// })
-
 
 module.exports = router;

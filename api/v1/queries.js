@@ -121,36 +121,17 @@ module.exports = {
     getUserGoals: function(id) {
       return Users.where({ id: id }).fetchAll({ withRelated: ['goals'] })
     },
-    // addUserGoal: function(id, g) {
-    //   var goal = new Goal(g);
-    //   var usergoal = new UserGoal();
-    //
-    //   return Users.forge({ id: id}).fetch({ withRelated: ['goals']})
-    //     .then((user) => {
-    //       return goal.save()
-    //         .then((go) => {
-    //           return go;
-    //         })
-    //       return [user,go]
-    //   }).then((result) => {
-    //     console.log("RESULT",result);
-    //   //   return usergoal.save({ user_id: user.id, goal_id: null })
-    //   //   console.log(collection);
-    //   //   console.log(goal);
-    //
-    //   })
     addUserGoal: function(id,g) {
-        var goal = new Goal(g);
-        var usergoal = new UserGoal();
-        return Users.forge({ id: id}).fetch({ withRelated: ['goals']})
-          .then((user) => {
-            return goal.save().then(go => { return [user, go] });
-        }).spread((user, resultB) => {
-            console.log(resultB);
-            return usergoal.save({ user_id: user.id, goal_id: resultB.id })
-        })
-    // }
-      // .catch( (error) {
+      var goal = new Goal(g);
+      var usergoal = new UserGoal();
+      return Users.forge({ id: id}).fetch({ withRelated: ['goals']})
+        .then((user) => {
+          return goal.save().then(go => { return [user, go] });
+      }).spread((user, goal) => {
+          // console.log(goal);
+          return usergoal.save({ user_id: user.id, goal_id: goal.id })
+      })
+      // .catch(error => {
       //   console.log(error)
       // })
     }
