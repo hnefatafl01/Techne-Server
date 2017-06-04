@@ -40,4 +40,9 @@ router.put('/edit/:id', (req,res) => {
     })
 })
 
+// router.delete('/delete/:id', (req,res) => {
+//   let exId = req.params.id;
+//   console.log("hi params ",exId);
+// })
+
 module.exports = router;

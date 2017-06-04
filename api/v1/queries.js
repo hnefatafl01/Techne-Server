@@ -28,10 +28,7 @@ module.exports = {
           return collection.toJSON();
         })
     },
-    // destroy: (id)=> {
-    //   return Exercise.where('id', id).destroy()
-    // },
-    destroy: function (id, session_id) {
+    destroy: function (session_id, id ) {
           if (session_id) {
             var ids = {
               exercise_id: id,
@@ -130,10 +127,9 @@ module.exports = {
       }).spread((user, goal) => {
           // console.log(goal);
           return usergoal.save({ user_id: user.id, goal_id: goal.id })
+      }).catch(error => {
+        console.log(error)
       })
-      // .catch(error => {
-      //   console.log(error)
-      // })
     }
 
   }

@@ -13,7 +13,7 @@ router.get('/', (req,res) => {
     })
 })
 
-router.post('/:id', (req,res)=>{
+router.post('/', (req,res)=>{
     Queries.Exercise.insert(req.body)
       .then((exercise) => {
         return knex('session_exercise')
@@ -22,42 +22,45 @@ router.post('/:id', (req,res)=>{
             exercise_id: exercise.id
           })
           .then(() => {
-            console.log(exercise);
             res.json(exercise)
           })
     })
 });
 
-router.get('/:id', (req, res) => {
-  Queries.Session.getOne(req.params.id)
-    .then((session) => {
-      res.json( session )
+router.delete('/:id', (req, res) => {
+  let id = req.params.id;
+  let baseUrl = req.baseUrl;
+  var numberString = baseUrl.replace( /\D/g, '');
+  let sessionId = numberString[1];
+  Queries.Exercise.destroy(sessionId, id)
+    .then((result) => {
+      res.json({result})
     })
 })
 
-router.put('/:id', (req,res)=>{
-    Queries.Session.update(req.body)
-      .then((exercise) => {
-        console.log(exercise.id);
-        return knex('session_exercise')
-          .insert({
-            session_id: req.params.id,
-            exercise_id: exercise.id
-          })
-          .then(() => {
-            res.json(exercise)
-          })
-    })
-});
+// router.get('/:id', (req, res) => {
+//   Queries.Session.getOne(req.params.id)
+//     .then((session) => {
+//       res.json( session )
+//     })
+// })
 
-router.delete('/:id/exercises/delete/:exerciseId', (req, res) => {
-  // Queries.Exercise.destroy(id, exerciseId)
-  //   .then((result) => {
-  //     console.log(result);
-  //     res.json({result})
-  //   })
-  console.log(req.params.id);
-})
+// router.put('/:id', (req,res)=>{
+//     Queries.Session.update(req.body)
+//       .then((exercise) => {
+//         console.log(exercise.id);
+//         return knex('session_exercise')
+//           .insert({
+//             session_id: req.params.id,
+//             exercise_id: exercise.id
+//           })
+//           .then(() => {
+//             res.json(exercise)
+//           })
+//     })
+// });
+
+
 
 // router.get('/:id/exercises/:id', (req,res) => {
 //   Queries.Session.getOne(req.params.id)
